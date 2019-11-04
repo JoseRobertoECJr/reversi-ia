@@ -2,11 +2,16 @@ from models.move import Move
 
 class IaPlayer:
   
+  import time
+
   def getMovementValue(self, color, board, isMyTurn, roundNum, maxRounds):
 
     validMoves = board.valid_moves(color)
 
-    if len(validMoves) <= 0 or roundNum >= maxRounds :
+    now = self.time.time()
+    time = now - self.start
+    
+    if len(validMoves) <= 0 or roundNum >= maxRounds or time > 2.9 :
       return isMyTurn * self.getMinMaxValue(board)
     else:
       movValue = None
@@ -44,10 +49,12 @@ class IaPlayer:
     movValue = None
     myMove = None
 
+    self.start = self.time.time()
+
     for move in  validMoves:
       boardClone = board.get_clone()
       boardClone.play(move, self.color)
-      movTempValue = self.getMovementValue(self.color, boardClone, 1, 1, 2)
+      movTempValue = self.getMovementValue(self.color, boardClone, 1, 1, 3)
       if movValue == None or movValue < movTempValue:
         myMove = move
         movValue = movTempValue
