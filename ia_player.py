@@ -54,7 +54,7 @@ class IaPlayer:
     for move in  validMoves:
       boardClone = board.get_clone()
       boardClone.play(move, self.color)
-      movTempValue = self.getMovementValue(self.color, boardClone, 1, 1, 3)
+      movTempValue = self.getMovementValue(self.color, boardClone, 1, 1, 10)
       if movValue == None or movValue < movTempValue:
         myMove = move
         movValue = movTempValue
